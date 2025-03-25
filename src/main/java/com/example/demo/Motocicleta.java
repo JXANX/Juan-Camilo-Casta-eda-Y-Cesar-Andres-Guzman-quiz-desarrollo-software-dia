@@ -5,14 +5,14 @@ public class Motocicleta {
     private String id;
     private String placa;
     private String cilindraje;
-    private int precioMotocicleta;
+    private String precioMotocicleta;
     private String colorMotocicleta;
 
     public Motocicleta() {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Motocicleta(String placa, String cilindraje, int precioMotocicleta, String colorMotocicleta) {
+    public Motocicleta(String placa, String cilindraje, String precioMotocicleta, String colorMotocicleta) {
         this.id = UUID.randomUUID().toString();
         this.placa = placa;
         this.cilindraje = cilindraje;
@@ -44,11 +44,11 @@ public class Motocicleta {
         this.cilindraje = cilindraje;
     }
 
-    public int getPrecioMotocicleta() {
+    public String getPrecioMotocicleta() {
         return precioMotocicleta;
     }
 
-    public void setPrecioMotocicleta(int precioMotocicleta) {
+    public void setPrecioMotocicleta(String precioMotocicleta) {
         this.precioMotocicleta = precioMotocicleta;
     }
 
