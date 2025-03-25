@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 @Repository
-public class UsuarioRepository {
+public class MotocicletaRepository {
     private final List<Motocicleta> baseDeDatos = new ArrayList<>();
     private final List<String> authTokens = new ArrayList<>();
     public Motocicleta save(Motocicleta motocicleta) {

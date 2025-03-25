@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
 
-	private final UsuarioService usuarioService;
+	private final MotocicletaService usuarioService;
 
 	@Autowired
-	public UsuarioController(UsuarioService usuarioService) {
+	public UsuarioController(MotocicletaService usuarioService) {
 		this.usuarioService = usuarioService;
 	}
 
