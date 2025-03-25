@@ -17,27 +17,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/usuarios")
-public class UsuarioController {
+@RequestMapping("/api/motocicletas")
+public class MotocicletaController {
 
-	private final MotocicletaService usuarioService;
+	private final MotocicletaService motocicletaService;
 
 	@Autowired
-	public UsuarioController(MotocicletaService usuarioService) {
-		this.usuarioService = usuarioService;
+	public MotocicletaController(MotocicletaService motocicletaService) {
+		this.motocicletaService = motocicletaService;
 	}
 
 	// Obtener todos los usuarios
 	@GetMapping
-	public ResponseEntity<List<Motocicleta>> getAllUsuarios() {
-		List<Motocicleta> motocicletas = usuarioService.findAll();
+	public ResponseEntity<List<Motocicleta>> getAllMotocicleta() {
+		List<Motocicleta> motocicletas = motocicletaService.findAll();
 		return new ResponseEntity<>(motocicletas, HttpStatus.OK);
 	}
 
 	// Obtener un usuario por ID
 	@GetMapping("/{id}")
-	public ResponseEntity<Motocicleta> getUsuarioById(@PathVariable String id) {
-		Motocicleta motocicleta = usuarioService.findById(id);
+	public ResponseEntity<Motocicleta> getMotocicletaById(@PathVariable String id) {
+		Motocicleta motocicleta = motocicletaService.findById(id);
 		if (motocicleta != null) {
 			return new ResponseEntity<>(motocicleta, HttpStatus.OK);
 		} else {
@@ -47,18 +47,18 @@ public class UsuarioController {
 
 	// Crear un nuevo usuario
 	@PostMapping
-	public ResponseEntity<Motocicleta> createUsuario(@RequestBody Motocicleta motocicleta) {
-		Motocicleta newMotocicleta = usuarioService.save(motocicleta);
+	public ResponseEntity<Motocicleta> createMotocicleta(@RequestBody Motocicleta motocicleta) {
+		Motocicleta newMotocicleta = motocicletaService.save(motocicleta);
 		return new ResponseEntity<>(newMotocicleta, HttpStatus.CREATED);
 	}
 
 	// Actualizar un usuario existente
 	@PutMapping("/{id}")
-	public ResponseEntity<Motocicleta> updateUsuario(@PathVariable String id, @RequestBody Motocicleta motocicleta) {
-		Motocicleta existingMotocicleta = usuarioService.findById(id);
+	public ResponseEntity<Motocicleta> updateMotocicleta(@PathVariable String id, @RequestBody Motocicleta motocicleta) {
+		Motocicleta existingMotocicleta = motocicletaService.findById(id);
 		if (existingMotocicleta != null) {
 			motocicleta.setId(id);
-			Motocicleta updatedMotocicleta = usuarioService.update(motocicleta);
+			Motocicleta updatedMotocicleta = motocicletaService.update(motocicleta);
 			return new ResponseEntity<>(updatedMotocicleta, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -67,10 +67,10 @@ public class UsuarioController {
 
 	// Eliminar un usuario
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteUsuario(@PathVariable String id) {
-		Motocicleta existingMotocicleta = usuarioService.findById(id);
+	public ResponseEntity<Void> deleteMotocicleta(@PathVariable String id) {
+		Motocicleta existingMotocicleta = motocicletaService.findById(id);
 		if (existingMotocicleta != null) {
-			usuarioService.deleteById(id);
+			motocicletaService.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -79,17 +79,18 @@ public class UsuarioController {
 
 	// Ruta con parámetros de consulta (query string)
 	@GetMapping("/buscar")
-	public ResponseEntity<List<Motocicleta>> buscarUsuarios(@RequestParam(required = false) String nombre,
-															@RequestParam(required = false) String email, @RequestParam(defaultValue = "0") int edad) {
-		List<Motocicleta> motocicletas = usuarioService.buscarPorFiltros(nombre, email, edad);
+	public ResponseEntity<List<Motocicleta>> buscarMotocicleta(@RequestParam(required = false) String placa,
+															@RequestParam(required = false) String cilindraje,@RequestParam(required = false) String precioMotocicleta,
+															   @RequestParam(required = false) String colorMotocicleta){
+		List<Motocicleta> motocicletas = motocicletaService.buscarPorFiltros(placa, cilindraje, precioMotocicleta, colorMotocicleta);
 		return new ResponseEntity<>(motocicletas, HttpStatus.OK);
 	}
 
 
 	// Ruta que lee cabeceras HTTP
 	@GetMapping("/auth")
-	public ResponseEntity<Motocicleta> getUserByToken(@RequestHeader("Authorization") String authToken) {
-		Motocicleta motocicleta = usuarioService.findByAuthToken(authToken);
+	public ResponseEntity<String> getMotocicletaByToken(@RequestHeader("Authorization") String authToken) {
+		String motocicleta = motocicletaService.findByAuthToken(authToken);
 		if (motocicleta != null) {
 			return new ResponseEntity<>(motocicleta, HttpStatus.OK);
 		} else {
